@@ -1,181 +1,173 @@
 <!DOCTYPE html>
 <html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My TODO List</title>
-    <link rel="stylesheet" href="styles/styles.css">
-</head>
+    <link rel="stylesheet" href="styles/styles.css" />
+  </head>
 
-<body class="flex justify-center align-center flex-col">
-
-
+  <body class="flex justify-center align-center flex-col">
     <div id="todo-card">
-        <h1>My TODO List</h1>
-        <div id="input-info">
-            <input type="text" name="" id="input-txt" placeholder="Add Item" oninput="properCase()">
-            <div id="add-item" class="flex align-center justify-center">
-                <img src="images/add.png" alt="">
-            </div>
+      <h1>My TODO List</h1>
+      <div id="input-info">
+        <input
+          type="text"
+          name=""
+          id="input-txt"
+          placeholder="Add Item"
+          oninput="properCase()"
+        />
+        <div id="add-item" class="flex align-center justify-center">
+          <img src="images/add.png" alt="" />
         </div>
+      </div>
 
-        <div id="todo-list" class="flex flex-col gap">
-        </div>
+      <div id="todo-list" class="flex flex-col gap">
+        
+      </div>
     </div>
 
-    <script>
-        let inputted = document.getElementById('input-txt')
-        let todoList = document.getElementById('todo-list')
-            //initalize count each time item is added
-        let count = 0
+    <!-- <script>
+        // js
+      let inputted = document.getElementById("input-txt");
+      let todoList = document.getElementById("todo-list");
+      //initalize count each time item is added
+      let count = 0;
 
-        // set inputed text to sentence case
-        function properCase() {
-            if (inputted.value !== ''){
-                let properText = inputted.value[0].toUpperCase() +
-                inputted.value.slice(1);
-            inputted.value = properText
-            }
-            else{
-                console.log('Input field empty')
-            }
+      // set inputed text to sentence case
+      function properCase() {
+        if (inputted.value !== "") {
+          let properText =
+            inputted.value[0].toUpperCase() + inputted.value.slice(1);
+          inputted.value = properText;
+        } else {
+          console.log("Input field empty");
         }
+      }
 
+      function add_item() {
+        //create new div for list items
+        let newEntry = document.createElement("div");
+        newEntry.className = "new-entry flex justify-spacebtw";
+        //append to TODO list
+        todoList.appendChild(newEntry);
+        // create new check text div and append to TODO list
+        let checkText = document.createElement("div");
+        checkText.className = "check-text flex justify-center align-center gap";
+        document.getElementsByClassName("new-entry")
+          [count].appendChild(checkText);
+        //create icons div and append to TODO list
+        let icons = document.createElement("div");
+        icons.className = "icons flex justify-center align-center gap";
+        document.getElementsByClassName("new-entry")[count].appendChild(icons);
+        //create new p element for each input entry
+        let newItem = document.createElement("p");
+        newItem.innerText = inputted.value;
+        //create check boxes
+        let newCheck = document.createElement("input");
+        newCheck.type = "checkbox";
+        newCheck.className = "list-checkbox";
+        newCheck.style.width = "25px";
+        newCheck.style.height = "25px";
+        // create images
+        let icon1 = document.createElement("img");
+        let icon2 = document.createElement("img");
+        icon1.src = "images/edit.png";
+        icon2.src = "images/remove.png";
 
+        // // add elements
+        let checkInput = document.getElementsByClassName("check-text");
+        let iconsList = document.getElementsByClassName("icons");
 
-        function add_item() {
+        iconsList[count].appendChild(icon1);
+        iconsList[count].appendChild(icon2);
 
-            //create new div for list items
-            let newEntry = document.createElement('div')
-            newEntry.className = 'new-entry flex justify-spacebtw'
-                //append to TODO list
-            todoList.appendChild(newEntry)
-                // create new check text div and append to TODO list
-            let checkText = document.createElement('div')
-            checkText.className = 'check-text flex justify-center align-center gap'
-            document.getElementsByClassName('new-entry')[count].appendChild(checkText)
-                //create icons div and append to TODO list
-            let icons = document.createElement('div')
-            icons.className = 'icons flex justify-center align-center gap'
-            document.getElementsByClassName('new-entry')[count].appendChild(icons)
-                //create new p element for each input entry
-            let newItem = document.createElement('p')
-            newItem.innerText = inputted.value
-                //create check boxes
-            let newCheck = document.createElement('input')
-            newCheck.type = 'checkbox'
-            newCheck.className = 'list-checkbox'
-            newCheck.style.width = '25px'
-            newCheck.style.height = '25px'
-                // create images
-            let icon1 = document.createElement('img')
-            let icon2 = document.createElement('img')
-            icon1.src = 'images/edit.png'
-            icon2.src = 'images/remove.png'
+        checkInput[count].appendChild(newCheck);
+        checkInput[count].appendChild(newItem);
+        count++;
 
-            // // add elements
-            let checkInput = document.getElementsByClassName('check-text')
-            let iconsList = document.getElementsByClassName('icons')
+        // add event for checkboxes
+        let checkBoxes = document.getElementsByClassName("list-checkbox");
 
-            iconsList[count].appendChild(icon1)
-            iconsList[count].appendChild(icon2)
-
-            checkInput[count].appendChild(newCheck)
-            checkInput[count].appendChild(newItem)
-            count++
-
-            // add event for checkboxes
-            let checkBoxes = document.getElementsByClassName('list-checkbox')
-
-            for (var i of checkBoxes) {
-                i.addEventListener('click', function() {
-
-                    if (i.checked) {
-
-                        i.nextElementSibling.style.textDecoration = 'line-through'
-                        i.nextElementSibling.style.color = 'gray'
-                    } else {
-                        i.nextElementSibling.style.textDecoration = 'none'
-                        i.nextElementSibling.style.color = 'rgb(21, 20, 20)'
-                    }
-
-                })
+        for (var i of checkBoxes) {
+          i.addEventListener("click", function () {
+            if (i.checked) {
+              i.nextElementSibling.style.textDecoration = "line-through";
+              i.nextElementSibling.style.color = "gray";
+            } else {
+              i.nextElementSibling.style.textDecoration = "none";
+              i.nextElementSibling.style.color = "rgb(21, 20, 20)";
             }
-            store_item()
-            console.log(count)
+          });
         }
+        store_item();
+        console.log(count);
+      }
 
-        document.getElementById('add-item').onclick = add_item
+      document.getElementById("add-item").onclick = add_item;
 
+      function store_item() {
+        let todo_List = [];
+        if (localStorage.getItem("todo") === null) {
+          todo_List.push(inputted.value);
+          localStorage.setItem("todo", JSON.stringify(todo_List));
+        } else {
+          let currentList = JSON.parse(localStorage.getItem("todo"));
+          currentList.push(inputted.value);
+          localStorage.setItem("todo", JSON.stringify(currentList));
+        }
+      }
 
+      let test = JSON.parse(localStorage.getItem("todo"));
+      let amt = 0;
+      if (test !== null) {
+        for (var i of test) {
+          //create new div for list items
+          let newEntry = document.createElement("div");
+          newEntry.className = "new-entry flex justify-spacebtw";
+          //append to TODO list
+          todoList.appendChild(newEntry);
+          // create new check text div and append to TODO list
+          let checkText = document.createElement("div");
+          checkText.className =
+            "check-text flex justify-center align-center gap";
+          document
+            .getElementsByClassName("new-entry")
+            [amt].appendChild(checkText);
+          //create icons div and append to TODO list
+          let icons = document.createElement("div");
+          icons.className = "icons flex justify-center align-center gap";
+          document.getElementsByClassName("new-entry")[amt].appendChild(icons);
+          //create new p element for each input entry
+          let newItem = document.createElement("p");
+          // newItem.innerText = inputted.value
+          //create check boxes
+          let newCheck = document.createElement("input");
+          newCheck.type = "checkbox";
+          newCheck.className = "list-checkbox";
+          newCheck.style.width = "25px";
+          newCheck.style.height = "25px";
+          // create images
+          let icon1 = document.createElement("img");
+          let icon2 = document.createElement("img");
+          icon1.src = "images/edit.png";
+          icon2.src = "images/remove.png";
 
-function store_item(){
-let todo_List = []
-if (localStorage.getItem('todo') === null){
-    todo_List.push(inputted.value)
-    localStorage.setItem('todo', JSON.stringify(todo_List))
-}
+          let checkInput = document.getElementsByClassName("check-text");
+          let iconsList = document.getElementsByClassName("icons");
+          newItem.innerText = i;
 
-else{
-    let currentList = JSON.parse(localStorage.getItem('todo'))
-    currentList.push(inputted.value)
-    localStorage.setItem('todo', JSON.stringify(currentList))
-}
-}
+          iconsList[amt].appendChild(icon1);
+          iconsList[amt].appendChild(icon2);
 
-
-
-// let test =  JSON.parse(localStorage.getItem('todo'))
-// let amt = 0
-// if (test !== null){
-//     //create new div for list items
-//     let newEntry = document.createElement('div')
-//             newEntry.className = 'new-entry flex justify-spacebtw'
-//                 //append to TODO list
-//             todoList.appendChild(newEntry)
-//                 // create new check text div and append to TODO list
-//             let checkText = document.createElement('div')
-//             checkText.className = 'check-text flex justify-center align-center gap'
-//             document.getElementsByClassName('new-entry')[count].appendChild(checkText)
-//                 //create icons div and append to TODO list
-//             let icons = document.createElement('div')
-//             icons.className = 'icons flex justify-center align-center gap'
-//             document.getElementsByClassName('new-entry')[count].appendChild(icons)
-//                 //create new p element for each input entry
-//             let newItem = document.createElement('p')
-//             // newItem.innerText = inputted.value
-//                 //create check boxes
-//             let newCheck = document.createElement('input')
-//             newCheck.type = 'checkbox'
-//             newCheck.className = 'list-checkbox'
-//             newCheck.style.width = '25px'
-//             newCheck.style.height = '25px'
-//                 // create images
-//             let icon1 = document.createElement('img')
-//             let icon2 = document.createElement('img')
-//             icon1.src = 'images/edit.png'
-//             icon2.src = 'images/remove.png'
-
-
-//     for (var i of test){
-//         let checkInput = document.getElementsByClassName('check-text')
-//         let iconsList = document.getElementsByClassName('icons')
-//         newItem.innerText = i
-
-//         iconsList[amt].appendChild(icon1)
-//         iconsList[amt].appendChild(icon2)
-
-//         checkInput[amt].appendChild(newCheck)
-//         checkInput[amt].appendChild(newItem)
-
-//         amt++
-    
-// }
-// }
-    </script>
-
-</body>
-
-
+          checkInput[amt].appendChild(newCheck);
+          checkInput[amt].appendChild(newItem);
+          console.log(amt);
+          amt++;
+        }
+      }
+    </script> -->
+    <script src="js/script.js"></script>
+  </body>
 </html>
