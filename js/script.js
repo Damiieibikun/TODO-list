@@ -138,8 +138,7 @@ function create_items(index, value, checked) {
   // Create new p element for each input entry
   let newItem = document.createElement("p");
   newItem.innerText = value;
-//   newItem.style.textDecoration = checked ? "line-through" : "none";
-//   newItem.style.color = checked ? "gray" : "rgb(21, 20, 20)";
+
 
   // Create checkboxes
   let newCheck = document.createElement("input");
@@ -175,57 +174,61 @@ function create_items(index, value, checked) {
     updateLocalStorage();
   });
 
-  // Add event listener for the edit icon
+  // Add event listener for the edit icon of that entry
   icon1.addEventListener("click", function () {
     editItem(index);
   });
 
-  // Add event listener for the remove icon
+  // Add event listener for the remove icon of that entry
   icon2.addEventListener("click", function () {
     removeItem(index);
   });
 }
 
+// create and update local storage
 function updateLocalStorage() {
   let todo_List = [];
-  let entries = document.querySelectorAll(".new-entry");
-  entries.forEach(entry => {
-    let text = entry.querySelector("p").innerText;
-    let checked = entry.querySelector(".list-checkbox").checked;
+let entries = document.getElementsByClassName('new-entry')
+for (var i of entries){
+    let text = i.getElementsByTagName("p")[0].innerText;
+    let checked = i.getElementsByClassName("list-checkbox")[0].checked;
     todo_List.push({ text: text, checkbox: checked });
-  });
+}
   localStorage.setItem("todo", JSON.stringify(todo_List));
 }
 
-function editItem(index_position) {
-  let entry = document.querySelector(`.new-entry[data-index='${index_position}']`);
-  let textElement = entry.querySelector("p");
-  let newText = prompt("Edit your item:", textElement.innerText);
+function editItem(index_position_parsed) {
+let entry = document.querySelector(`.new-entry[data-index='${index_position_parsed}']`);
+let textElement = entry.getElementsByTagName("p")[0];
+inputted.value = textElement.innerText
+let newText = inputted.value;
   if (newText !== null) {
+
     textElement.innerText = newText;
     updateLocalStorage();
   }
 }
 
-function removeItem(index_position) {
-  let entry = document.querySelector(`.new-entry[data-index='${index_position}']`);
+function removeItem(index_position_parsed) {
+  let entry = document.querySelector(`.new-entry[data-index='${index_position_parsed}']`);
   todoList.removeChild(entry);
   updateLocalStorage();
+  //reload window to reset index value
+  window.location.reload();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
   let storedTodos = JSON.parse(localStorage.getItem("todo"));
   if (storedTodos !== null) {
-    storedTodos.forEach((todo, index) => {
-      create_items(index, todo.text, todo.checkbox);
-    });
+    for (var i = 0; i< storedTodos.length; i++){
+        create_items(i, storedTodos[i].text, storedTodos[i].checkbox)
+    }
   }
 });
 
 document.getElementById("add-item").addEventListener("click", function () {
-//   properCase();
   let value = inputted.value;
-  if (value) {
+  if (value !== '') {
     create_items(todoList.children.length, value, false);
     inputted.value = "";
     updateLocalStorage();
