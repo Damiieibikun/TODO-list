@@ -1,0 +1,120 @@
+body {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #DAF0F7;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+.flex {
+    display: flex;
+}
+
+.justify-center {
+    justify-content: center;
+}
+
+.justify-spacebtw {
+    justify-content: space-between;
+}
+
+.flex-col {
+    flex-direction: column;
+}
+
+.align-center {
+    align-items: center;
+}
+
+#todo-card {
+    margin-top: 20%;
+    width: 400px;
+    /* border: 1px solid black; */
+}
+
+#todo-card h1{
+    text-align: center;
+    font-family: cursive;
+    color: #275061;
+}
+
+#input-txt {
+    height: 50px;
+    width: 393px;
+    /* background-color: #D5E3F0; */
+    border-top-left-radius: 15px;
+    border-top-right-radius: 5px;
+    /* border: .8px solid #D5E3F0; */
+    font-size: 20px;
+    padding: 5px;
+    /* background-color: #F6CFFC; */
+    border: .8px solid #D5E3F0;
+    background-color: #39748E;
+    color: white;
+}
+
+::placeholder {
+    color: white;
+}
+
+#add-item {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    top: -10px;
+    right: -20px;
+    position: absolute;
+    /* background-color: #7ba9f3; */
+    transition: .3s ease-in-out;
+    /* background-color: #D3BDFB; */
+    background-color: #9390B5;
+}
+
+#add-item:hover {
+    cursor: pointer;
+    /* background-color: #4387f5; */
+    transform: scale(1.02);
+    /* background-color: #A2AFF8; */
+    background-color: #546AA2;
+}
+
+#input-info {
+    position: relative;
+}
+
+#add-item img {
+    width: 30px;
+    transition: .3s ease-in-out;
+}
+
+#add-item img:hover {
+    transform: scale(1.2);
+}
+
+#todo-list {
+    width: 385px;
+    /* height: 100px; */
+    /* border: 1px solid black; */
+    /* background-color: #F9DEF9; */
+    background-color: #9ac0d02c;
+    color: white;
+    padding: 10px;
+}
+
+p {
+    margin: 0;
+    font-size: 20px;
+    color: rgb(21, 20, 20);
+    font-weight: 500;
+}
+
+.gap {
+    gap: 5px
+}
+
+
+/* #new-entry {
+    height: 20px;
+    width: 100px;
+    border: 1px solid black;
+} */
