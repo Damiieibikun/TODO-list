@@ -229,9 +229,13 @@ document.addEventListener("DOMContentLoaded", function () {
 document.getElementById("add-item").addEventListener("click", function () {
   let value = inputted.value;
   if (value !== '') {
+    document.getElementById('error').style.display = 'none'
     create_items(todoList.children.length, value, false);
     inputted.value = "";
     updateLocalStorage();
+  }
+  else{
+    document.getElementById('error').innerText = 'Enter an Item'
   }
 });
 

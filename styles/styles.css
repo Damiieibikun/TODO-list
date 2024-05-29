@@ -127,3 +127,8 @@ p {
     font-size: 20px;
     top: -10px;
 }
+
+#error{
+    color: #275061;
+    text-align: center;
+}
