@@ -203,8 +203,8 @@ let textElement = entry.getElementsByTagName("p")[0];
 inputted.value = textElement.innerText
 let newText = inputted.value;
   if (newText !== null) {
-
     textElement.innerText = newText;
+    // window.location.reload()
     updateLocalStorage();
   }
 }
@@ -227,6 +227,8 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.getElementById("add-item").addEventListener("click", function () {
+  window.location.reload()
+  
   let value = inputted.value;
   if (value !== '') {
     document.getElementById('error').style.display = 'none'
