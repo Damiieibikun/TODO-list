@@ -107,6 +107,7 @@ let todoList = document.getElementById("todo-list");
 
 // Initialize count each time an item is added
 let count = 0;
+let editedIndex = null;
 
 // Set input text to sentence case
 function properCase() {
@@ -204,8 +205,9 @@ inputted.value = textElement.innerText
 let newText = inputted.value;
   if (newText !== null) {
     textElement.innerText = newText;
-    // window.location.reload()
-    updateLocalStorage();
+    //get index of edited entry
+    editedIndex = index_position_parsed
+
   }
 }
 
@@ -213,8 +215,6 @@ function removeItem(index_position_parsed) {
   let entry = document.querySelector(`.new-entry[data-index='${index_position_parsed}']`);
   todoList.removeChild(entry);
   updateLocalStorage();
-  //reload window to reset index value
-  window.location.reload();
 }
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -227,12 +227,35 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 document.getElementById("add-item").addEventListener("click", function () {
-  window.location.reload()
+
   
   let value = inputted.value;
   if (value !== '') {
     document.getElementById('error').style.display = 'none'
-    create_items(todoList.children.length, value, false);
+    if (editedIndex !==null){
+      removeItem(editedIndex)
+      // window.location.reload()
+      create_items(editedIndex, value, false);
+      editedIndex = null
+      
+    // let listArray = document.getElementsByClassName('new-entry')
+    // let listIndices = []
+    // for (var i of document.getElementsByClassName('new-entry')){
+    // listIndices.push(i.dataset.index)
+    // }
+    //   let rearranged = reorderItems(listArray, listIndices)
+    //   for(var j of rearranged){
+    //     document.getElementById('todo-list').append(j)
+    //   }
+      
+    }
+    else{
+      create_items(todoList.children.length, value, false);
+    }
+
+
+    
+    
     inputted.value = "";
     updateLocalStorage();
   }
@@ -243,5 +266,17 @@ document.getElementById("add-item").addEventListener("click", function () {
 
 document.getElementById('remove-items').addEventListener('click', function(){
     localStorage.removeItem("todo");
+    //reload page once list is cleared
     window.location.reload()
 })
+
+
+
+// function reorderArrayByIndexes(originalArray, indexesArray) { 
+//   return indexesArray.map( 
+//       index => originalArray[index]); 
+// } 
+function reorderItems(originalArray, indexesArray){
+  return indexesArray.map( 
+          index => originalArray[index]);
+}
