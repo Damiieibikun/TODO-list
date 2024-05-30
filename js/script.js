@@ -47,6 +47,15 @@ function create_items(index, value, checked) {
   newCheck.style.height = "25px";
   newCheck.checked = checked;
 
+
+  if (newCheck.checked) {
+    newItem.style.textDecoration = "line-through";
+    newItem.style.color = "gray";
+  } else {
+    newItem.style.textDecoration = "none";
+    newItem.style.color = "rgb(21, 20, 20)";
+  }
+
   // Create images
   let icon1 = document.createElement("img");
   let icon2 = document.createElement("img");
@@ -105,7 +114,6 @@ let newText = inputted.value;
     textElement.innerText = newText;
     //get index of edited entry
     editedIndex = index_position_parsed
-    console.log('edit index on edit: ' + editedIndex)
 
   }
 }
@@ -132,11 +140,12 @@ document.getElementById("add-item").addEventListener("click", function () {
   if (value !== '') {
     document.getElementById('error').style.display = 'none'
     if (editedIndex !==null){
-      console.log('edit index on add before remove: ' + editedIndex)
+// retrieve entry with edited index value and reassign inner text to inputted value
       let editedEntry = document.getElementsByClassName('new-entry')[editedIndex]
+      console.log(editedEntry)
       editedEntry.querySelectorAll('p')[0].innerText = value
-       console.log('edit index on add after remove: ' + editedIndex)
-   
+
+   // reset edited text value to null
       editedIndex = null
 
       
@@ -162,13 +171,4 @@ document.getElementById('remove-items').addEventListener('click', function(){
     window.location.reload()
 })
 
-
-
-// function reorderArrayByIndexes(originalArray, indexesArray) { 
-//   return indexesArray.map( 
-//       index => originalArray[index]); 
-// } 
-function reorderItems(originalArray, indexesArray){
-  return indexesArray.map( 
-          index => originalArray[index]);
-}
+ 
