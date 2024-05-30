@@ -1,5 +1,3 @@
-
-
 let inputted = document.getElementById("input-txt");
 let todoList = document.getElementById("todo-list");
 
@@ -38,7 +36,6 @@ function create_items(index, value, checked) {
   let newItem = document.createElement("p");
   newItem.innerText = value;
 
-
   // Create checkboxes
   let newCheck = document.createElement("input");
   newCheck.type = "checkbox";
@@ -47,7 +44,7 @@ function create_items(index, value, checked) {
   newCheck.style.height = "25px";
   newCheck.checked = checked;
 
-
+  // set styles if checkbox has a value of true from local storage
   if (newCheck.checked) {
     newItem.style.textDecoration = "line-through";
     newItem.style.color = "gray";
@@ -79,6 +76,7 @@ function create_items(index, value, checked) {
       newItem.style.textDecoration = "none";
       newItem.style.color = "rgb(21, 20, 20)";
     }
+    //update local storage immediately boxes are checked
     updateLocalStorage();
   });
 
@@ -96,79 +94,80 @@ function create_items(index, value, checked) {
 // create and update local storage
 function updateLocalStorage() {
   let todo_List = [];
-let entries = document.getElementsByClassName('new-entry')
-for (var i of entries){
+  let entries = document.getElementsByClassName("new-entry");
+  for (var i of entries) {
     let text = i.getElementsByTagName("p")[0].innerText;
     let checked = i.getElementsByClassName("list-checkbox")[0].checked;
     todo_List.push({ text: text, checkbox: checked });
-}
+  }
   localStorage.setItem("todo", JSON.stringify(todo_List));
 }
 
+//edit items
 function editItem(index_position_parsed) {
-let entry = document.querySelector(`.new-entry[data-index='${index_position_parsed}']`);
-let textElement = entry.getElementsByTagName("p")[0];
-inputted.value = textElement.innerText
-let newText = inputted.value;
+  let entry = document.querySelector(
+    `.new-entry[data-index='${index_position_parsed}']`
+  );
+  let textElement = entry.getElementsByTagName("p")[0];
+  inputted.value = textElement.innerText;
+  let newText = inputted.value;
   if (newText !== null) {
     textElement.innerText = newText;
     //get index of edited entry
-    editedIndex = index_position_parsed
-
+    editedIndex = index_position_parsed;
   }
 }
 
+//remove items
 function removeItem(index_position_parsed) {
-  let entry = document.querySelector(`.new-entry[data-index='${index_position_parsed}']`);
+  let entry = document.querySelector(
+    `.new-entry[data-index='${index_position_parsed}']`
+  );
   todoList.removeChild(entry);
   updateLocalStorage();
 }
 
+//on load, retrieve data from local storage and populate list
 document.addEventListener("DOMContentLoaded", function () {
   let storedTodos = JSON.parse(localStorage.getItem("todo"));
   if (storedTodos !== null) {
-    for (var i = 0; i< storedTodos.length; i++){
-        create_items(i, storedTodos[i].text, storedTodos[i].checkbox)
+    for (var i = 0; i < storedTodos.length; i++) {
+      create_items(i, storedTodos[i].text, storedTodos[i].checkbox);
     }
   }
 });
 
+// event listener for add button
 document.getElementById("add-item").addEventListener("click", function () {
-
-  
   let value = inputted.value;
-  if (value !== '') {
-    document.getElementById('error').style.display = 'none'
-    if (editedIndex !==null){
-// retrieve entry with edited index value and reassign inner text to inputted value
-      let editedEntry = document.getElementsByClassName('new-entry')[editedIndex]
-      console.log(editedEntry)
-      editedEntry.querySelectorAll('p')[0].innerText = value
+  if (value !== "") {
+    document.getElementById("error").style.display = "none";
+    if (editedIndex !== null) {
+      // retrieve entry with edited index value and reassign inner text to inputted value
+      let editedEntry =
+        document.getElementsByClassName("new-entry")[editedIndex];
+      console.log(editedEntry);
+      editedEntry.querySelectorAll("p")[0].innerText = value;
 
-   // reset edited text value to null
-      editedIndex = null
-
-      
-    }
-    else{
+      // reset edited text value to null
+      editedIndex = null;
+    } else {
+      //add new enteries at the bottom of the list
       create_items(todoList.children.length, value, false);
     }
 
-
-    
-    
+    //after each entry has been added, reset input field to empty and update local storage
     inputted.value = "";
     updateLocalStorage();
-  }
-  else{
-    document.getElementById('error').innerText = 'Enter an Item'
+  } else {
+    // Display error message if input field is empty
+    document.getElementById("error").innerText = "Enter an Item";
   }
 });
 
-document.getElementById('remove-items').addEventListener('click', function(){
-    localStorage.removeItem("todo");
-    //reload page once list is cleared
-    window.location.reload()
-})
-
- 
+//event listner to clear list
+document.getElementById("remove-items").addEventListener("click", function () {
+  localStorage.removeItem("todo");
+  //reload page once list is cleared
+  window.location.reload();
+});
