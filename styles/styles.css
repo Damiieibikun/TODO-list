@@ -28,8 +28,8 @@ body {
 
 #todo-card {
     margin-top: 10%;
-    width: 400px;
-    /* border: 1px solid black; */
+    min-width: 310px;
+    width: fit-content;
 }
 
 #todo-card h1{
@@ -40,14 +40,11 @@ body {
 
 #input-txt {
     height: 50px;
-    width: 393px;
-    /* background-color: #D5E3F0; */
+    min-width: 310px;
     border-top-left-radius: 15px;
     border-top-right-radius: 5px;
-    /* border: .8px solid #D5E3F0; */
     font-size: 20px;
     padding: 5px;
-    /* background-color: #F6CFFC; */
     border: .8px solid #D5E3F0;
     background-color: #39748E;
     color: white;
@@ -61,26 +58,23 @@ body {
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    top: -10px;
-    right: -20px;
+    top: -15px;
+    right: -22px;
     position: absolute;
-    /* background-color: #7ba9f3; */
     transition: .3s ease-in-out;
-    /* background-color: #D3BDFB; */
     background-color: #9390B5;
 }
 
 #add-item:hover, 
 #remove-items:hover {
     cursor: pointer;
-    /* background-color: #4387f5; */
     transform: scale(1.02);
-    /* background-color: #A2AFF8; */
     background-color: #546AA2;
 }
 
 #input-info {
     position: relative;
+    width: fit-content;
 }
 
 #add-item img {
@@ -93,10 +87,8 @@ body {
 }
 
 #todo-list {
-    width: 385px;
-    /* height: 100px; */
-    /* border: 1px solid black; */
-    /* background-color: #F9DEF9; */
+    width: 300px;
+    min-width: fit-content;
     background-color: #9ac0d02c;
     color: white;
     padding: 10px;
